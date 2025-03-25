@@ -163,3 +163,56 @@ mvn test
 - Spring Boot Team
 - PostgreSQL Team
 - OpenAPI Initiative
+
+
+
+
+## Instructions from Canvas
+
+Objective This assignment ensures that each
+team member develops fundamental skills in building
+REST APIs using Spring Boot by creating individual
+endpoints and implementing basic CRUD operations.
+
+
+### **1 - Develop REST API Endpoints**
+- Each team member should design and implement 3-4 REST endpoints using Spring Boot.
+- The API should include a mix of HTTP methods (GET, POST, PUT, DELETE).
+- Implementation should follow the Spring Boot architecture patterns with proper separation of concerns.
+
+
+### **2 - Required Components**
+- Create 2-3 entity classes that represent your data models
+-  Implement at least one service class with business logic
+-  Create 1-2 repository interfaces for data access
+-  Develop one controller class to handle HTTP requests
+-  Include proper exception handling and response status codes
+
+
+### **3 - Implementation Requirements**
+- Use appropriate annotations (@RestController, @Service, @Repository, etc.)
+- Implement proper request/response DTOs where necessary
+- Include input validation using annotations (@Valid, @NotNull, etc.)
+- Document your API endpoints using Swagger/OpenAPI annotations
+- Follow RESTful naming conventions and best practices
+
+
+### **4 - Technical Documentation**
+- Provide documentation for each endpoint including:
+  - HTTP method and URL path
+  - Request/response formats with examples
+  - Required parameters and their constraints
+  - Possible response status codes
+- Include setup instructions for running the API locally
+
+### **5 - Submission Guidelines**
+- Submit your Spring Boot project as a Git repository
+- Include a README.md with:
+  - Project setup instructions
+  - API documentation
+  - Examples of API usage
+- Each team member should submit their individual implementation
+
+**Note:** While the implementations are individual, 
+ensure your API design aligns with the team's project 
+domain and could potentially be integrated into the main project in the future.
