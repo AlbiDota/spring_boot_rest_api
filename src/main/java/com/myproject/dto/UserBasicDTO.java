@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserBasicDTO {
+public class UserBasicDTO { //Data Transfer Object
+    private Long id;
     private String email;
     private String password;
-    private String firstname;
-    private String lastname;
 }

@@ -43,11 +43,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    // ---------- DELETE
+    //DELETE a user
     @Override
     public void deleteUser(String email) {
-        userRepository.deleteByEmail(email);
+        userRepository.deleteUser(email);
     }
 
+    // ---------- PUT
+    //UPDATE a user
     @Override
     public User updateUser(String email, String password, String firstname, String lastname) {
         return null; //idk

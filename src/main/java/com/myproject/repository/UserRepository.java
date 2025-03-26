@@ -18,5 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //@Query(value="SELECT * FROM User WHERE lastname LIKE %:lastname", nativeQuery=true)
     List <User> getUsersByLastname(String lastname); //finner på etternavn
 
-    void deleteByEmail(String email);
+    void deleteUser(String email);
+
 }
