@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyProjectApplication {
+public class app2000oblig2Application {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(MyProjectApplication.class, args);
+        SpringApplication.run(app2000oblig2Application.class, args);
     }
 
 }

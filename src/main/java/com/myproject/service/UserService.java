@@ -13,7 +13,7 @@ public interface UserService {
     List<User> getUsers();
 
     //Get user by email
-    User getUserByEmail(String email);
+    User findUserByEmail(String email);
 
     //Get user by lastname
     User getUserByLastname(String lastname);
@@ -24,7 +24,7 @@ public interface UserService {
 
     // ---------- DELETE
     //DELETE a user
-    void deleteUser(String email);
+    void deleteUserByEmail(String email);
 
     // ---------- PUT
     //UPDATE a user

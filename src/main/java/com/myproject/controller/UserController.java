@@ -27,8 +27,8 @@ public class UserController {
     }
 
     @GetMapping
-    public User getUserByEmail(String email) {
-        return userService.getUserByEmail(email);
+    public User findUserByEmail(String email) {
+        return userService.findUserByEmail(email);
     }
 
     @GetMapping
@@ -45,8 +45,8 @@ public class UserController {
     // DELETE
     /*
     @PostMapping
-    public void deleteUser(@PathVariable String email, @RequestBody User user) {
-        userService.deleteUser(email);
+    public void deleteUserByEmail(@PathVariable String email, @RequestBody User user) {
+        userService.deleteUserByEmail(email);
     }
     */
 }

@@ -26,14 +26,18 @@ public class UserServiceImpl implements UserService {
 
     //Get user by email
     @Override
-    public User getUserByEmail(String email) {
-        return (User) userRepository.getUserByEmail(email);
+    public User findUserByEmail(String email) {
+        return (User) userRepository.findUserByEmail(email);
+    }
+
+    @Override
+    public User getUserByLastname(String lastname) {
+        return (User) userRepository.findByLastname(lastname);
     }
 
     //Get user by lastname
-    @Override
     public User getUserByLastname(String lastname) {
-        return (User) userRepository.getUsersByLastname(lastname);
+        return (User) userRepository.findUsersByLastname(lastname);
     }
 
     // ---------- SAVE
@@ -47,7 +51,7 @@ public class UserServiceImpl implements UserService {
     //DELETE a user
     @Override
     public void deleteUser(String email) {
-        userRepository.deleteUser(email);
+        userRepository.deleteUserByEmail(email);
     }
 
     // ---------- PUT
