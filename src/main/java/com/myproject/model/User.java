@@ -18,8 +18,8 @@ public class User {
 
     @Id //Jeg ønsker å bruke google authentication for å mekke ID-en til brukern, men foreløpig er den generert her
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "User ID", accessMode = Schema.AccessMode.READ_ONLY) //so we dont accidentaly mess up
-    @Column(name = "userid") // the id in swagger or postman
+    @Schema(description = "User ID", accessMode = Schema.AccessMode.READ_ONLY) //så vi ikke fucker opp IDen
+    @Column(name = "userid")                                                // i swagger eller postman
     private Long userid;
 
     @Column(name = "username")
@@ -29,7 +29,7 @@ public class User {
     private String email;
 
 
-    // kan være rar å hente fra googles greie AFAIK
+    // kan være rar å hente fra googles greie AFAIK //SCRAPPED ????
     @Column(name = "birthday")
     private LocalDate birthday;
 
