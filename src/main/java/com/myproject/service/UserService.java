@@ -1,34 +1,36 @@
 package com.myproject.service;
 import com.myproject.model.User;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import java.util.*;
-
-@Service
 public interface UserService {
 
-    // ---------- GET
-    //Get all users
-    List<User> getUsers();
+    // fetch all users
+    List<User> getAllUsers();
 
-    //Get user by email
-    User findUserByEmail(String email);
+    // fetch a user by id
+    User getUserById(Long userid);
 
-    //Get user by lastname
-    User getUserByLastname(String lastname);
+    // fetch a user by name
+    List<User> getUsersByNameLike(String username);
 
-    // ---------- SAVE
-    //Create a user
+    // fetch a user by email
+    User getUserByEmail(String email);
+
+    // update a user
+    User updateUser(Long userid, User updatedUser);
+
+    // create a user
+    //void createUser(User user);
     User createUser(User user);
+//    public User saveUser(User user) {
+//        return userRepository.save(user);
+//    }
 
-    // ---------- DELETE
-    //DELETE a user
+
+    // delete a user by id
+    void deleteUserByUserId(Long userid);
+
+    // delete a user by email
     void deleteUserByEmail(String email);
-
-    // ---------- PUT
-    //UPDATE a user
-    User updateUser(String email, String password, String firstname, String lastname);
-
-
 }

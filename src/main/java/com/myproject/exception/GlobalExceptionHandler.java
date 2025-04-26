@@ -1,4 +1,4 @@
-package com.myproject.exception;
+/*package com.myproject.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -20,4 +20,4 @@ public class GlobalExceptionHandler {
                 .internalServerError()
                 .body("An unexpected error occurred: " + e.getMessage());
     }
-}
+}*/

@@ -2,62 +2,62 @@ package com.myproject.service;
 
 import com.myproject.model.User;
 import com.myproject.repository.UserRepository;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Getter
-@Setter
-
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
 
-    // ---------- GET
-    //Get all users
+    // ------ GET -------
     @Override
-    public List<User> getUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    //Get user by email
     @Override
-    public User findUserByEmail(String email) {
-        return (User) userRepository.findUserByEmail(email);
+    public User getUserById(Long userid) {
+        return userRepository.findById(userid).orElse(null);
     }
 
     @Override
-    public User getUserByLastname(String lastname) {
-        return (User) userRepository.findByLastname(lastname);
+    public List<User> getUsersByNameLike(String username) {
+        return userRepository.findByUsernameContainingIgnoreCase(username);
     }
 
-    //Get user by lastname
-    public User getUserByLastname(String lastname) {
-        return (User) userRepository.findUsersByLastname(lastname);
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
-    // ---------- SAVE
-    //Create a user
+    //------- PUT -------
+    @Override
+    public User updateUser(Long userid, User updatedUser) {
+        return userRepository.findById(userid).map(
+                        user -> {
+                            user.setUsername(updatedUser.getUsername());
+                            user.setEmail(updatedUser.getEmail());
+                            user.setBirthday(updatedUser.getBirthday());
+                            return userRepository.save(user);
+                        })
+                .orElseThrow(() -> new RuntimeException("User not found" + userid));
+    }
+
+
+    //------- POST -------
     @Override
     public User createUser(User user) {
         return userRepository.save(user);
     }
 
-    // ---------- DELETE
-    //DELETE a user
+    //------- DELETE -------
     @Override
-    public void deleteUser(String email) {
-        userRepository.deleteUserByEmail(email);
-    }
+    public void deleteUserByUserId(Long userid) { userRepository.deleteById(userid);}
 
-    // ---------- PUT
-    //UPDATE a user
     @Override
-    public User updateUser(String email, String password, String firstname, String lastname) {
-        return null; //idk
-    }
+    public void deleteUserByEmail(String email) { userRepository.deleteUserByEmail(email);}
 }

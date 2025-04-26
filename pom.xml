@@ -8,11 +8,11 @@
         <version>3.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.example</groupId>
-    <artifactId>mailserver</artifactId>
+    <groupId>com.myproject</groupId>
+    <artifactId>app2000oblig2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mailserver</name>
-    <description>mailserver</description>
+    <name>app2000oblig2</name>
+    <description>app2000oblig2</description>
     <url/>
     <licenses>
         <license/>
@@ -30,6 +30,14 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-oauth2-client</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>

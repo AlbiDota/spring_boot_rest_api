@@ -9,6 +9,7 @@ Using an older assignment as a placeholder and template to start with.
 - OpenAPI (Swagger) for documentation
 - MapStruct for object mapping
 - Lombok for reducing boilerplate code
+- OAuth2.0 for google auth
 
 ## Prerequisites
 
@@ -16,19 +17,19 @@ Before you begin, ensure you have:
 - JDK 21
 - Maven
 - PostgreSQL
-- Your favorite IDE (preferably IntelliJ IDEA)
+- IntelliJ IDEA
 
 ## Getting Started
 
 1. Clone the repository
 2. Create PostgreSQL database:
 ```sql
-CREATE DATABASE mailserver;
+CREATE DATABASE app2000oblig2;
 ```
 
 3. Configure database connection in `src/main/resources/application.properties`:
 ```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/mailserver
+spring.datasource.url=jdbc:postgresql://localhost:5432/app2000oblig2
 spring.datasource.username=your_username (most likely 'postgres')
 spring.datasource.password=your_password
 ```
@@ -61,14 +62,15 @@ The application will be available at `http://localhost:8080`
 ## API Documentation
 
 Access the Swagger UI to explore and test the API:
-- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- Swagger UI: `http://localhost:8080/swagger-ui.html/index.html`
 - OpenAPI JSON: `http://localhost:8080/v3/api-docs`
 
 ### Testing with Swagger UI
 
 1. Start your Spring Boot application
 2. Go to `http://localhost:8080/swagger-ui.html` in your browser
-3. Explore and test the available endpoints:
+3. **SCRAPPED Sign in with 'user' and 'password' (these can be changed in your SecurityConfig however you like)
+4. Explore and test the available endpoints:
     - Expand the "Mail Controller" section to see all endpoints
     - Click on an endpoint (e.g., GET `/api/v1/users`)
     - Click "Try it out", then "Execute"
@@ -78,7 +80,7 @@ Access the Swagger UI to explore and test the API:
 
 1. Download and install [Postman](https://www.postman.com/downloads/)
 2. Create requests for the following endpoints:
-   - GET `/api/mail/{id}` - Get mail by ID
+   - GET `/api/mail/{userid}` - Get mail by ID
    - GET `/api/mail` - Get all mail
    - POST `/api/mail` - Create new mail
    - PUT `/api/mail/{id}` - Update mail

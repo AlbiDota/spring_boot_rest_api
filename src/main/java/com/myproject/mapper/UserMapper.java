@@ -1,5 +1,4 @@
-package com.myproject.mapper;
-
+/*
 import com.myproject.dto.UserBasicDTO;
 import com.myproject.dto.UserDetailDTO;
 import com.myproject.model.User;
@@ -19,3 +18,4 @@ public interface UserMapper {
 
     // Add your custom mapping methods here
 }
+*/
