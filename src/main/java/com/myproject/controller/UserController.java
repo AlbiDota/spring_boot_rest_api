@@ -46,7 +46,7 @@ public class UserController {
         return userService.getUsersByNameLike(username);
     }
 
-    @GetMapping("/get/")
+    @GetMapping("/get-all/")
     @Operation(summary="Get all users", description = "List all users")
     public List<User> getAllUsers() {
         return userService.getAllUsers();

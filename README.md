@@ -71,9 +71,9 @@ Access the Swagger UI to explore and test the API:
 2. Go to `http://localhost:8080/swagger-ui.html` in your browser
 3. **SCRAPPED Sign in with 'user' and 'password' (these can be changed in your SecurityConfig however you like)
 4. Explore and test the available endpoints:
-    - Expand the "Mail Controller" section to see all endpoints
-    - Click on an endpoint (e.g., GET `/api/v1/users`)
-    - Click "Try it out", then "Execute"
+    - Expand the "Exercise Controller" section to see all endpoints related to it
+    - Click on an endpoint (e.g., GET `/api/exercise/get/{name}`)
+    - Click "Try it out", type in something like "Running", then "Execute"
     - View the response
 
 ### Testing with Postman
@@ -95,21 +95,19 @@ Access the Swagger UI to explore and test the API:
    - DELETE `/api/user/delete-email/{email}` - Delete mail by email
 
 
-Example POST request body (users):
-
+Example POST request body (exercise):
+(the ID of the exercise is not included in the form, as it is auto-generated behind the scenes)
 ```json
 {
-  "id": "4",
-  "username": "bertusmaximus",
-  "email": "drbert@conke.ru",
-  "password": "hemmelig"
+  "name": "String",
+  "descr": "String"
 }
 ```
 
 ## Project Structure
 
 ```
-src/main/java/org/example/mailserver
+src/main/java/com/myproject/
 ├── config/          # Configuration classes
 ├── controller/      # REST controllers
 ├── model/           # Entity classes

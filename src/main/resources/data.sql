@@ -19,7 +19,7 @@ CREATE TABLE exercises (
 CREATE TABLE workouts (
     workout_id SERIAL PRIMARY KEY,
     title VARCHAR(255),
-    notes TEXT,
+    content TEXT,
     workout_date TIMESTAMP,
     users_id BIGINT,
     exercises_id BIGINT, -- foreign key IDer navngir vi med (tablenavn + understrek + id) for ordens skyld ye
@@ -27,9 +27,9 @@ CREATE TABLE workouts (
     CONSTRAINT fk_exercise FOREIGN KEY (exercises_id) REFERENCES exercises(exerciseid) ON DELETE CASCADE
 );
 
-TRUNCATE TABLE workouts;
-TRUNCATE TABLE exercises;
-TRUNCATE TABLE users;
+--TRUNCATE TABLE workouts;
+--TRUNCATE TABLE exercises;
+--TRUNCATE TABLE users;
 
 -- users
 INSERT INTO users ( username, email, birthday) VALUES
@@ -48,7 +48,7 @@ INSERT INTO exercises (name, description) VALUES
     ('Benchpress', 'Dumbbell bench');
 
 -- workouts
-INSERT INTO workouts (title, notes, workout_date, users_id, exercises_id) VALUES
+INSERT INTO workouts (title, content, workout_date, users_id, exercises_id) VALUES
     ('CHEST DAY', 'YEAAH BUDDEYYEA', now(), 5, 4),
     ('Løper litt da hehe', 'rolig tur på bana', now(), 3, 1),
     ('Løper mye!!', 'Marathon før frokost', now(), 3, 2);
@@ -56,6 +56,6 @@ INSERT INTO workouts (title, notes, workout_date, users_id, exercises_id) VALUES
 
 
 
-SELECT * FROM exercises ORDER BY exercise_id;
+SELECT * FROM exercises ORDER BY exerciseid;
 SELECT * FROM workouts ORDER BY users_id, workout_date;
 SELECT * FROM users ORDER BY userid;
