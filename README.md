@@ -63,6 +63,8 @@ AND MAKE SURE TO CHANGE THESE BACK IF YOU ARE EVER TO SHARE THIS CODE!!
 This would more optimally be done with secrets in a `.env` file along with the database password, but not needed right now
 
 THE ID AND SECRET SHOULD NEVER BE SHARED ONLINE!! THIS IS ONLY FOR RUNNING IT LOCALLY!!!
+
+
 5. Make sure the last line looks like this:
 ```properties
 spring.jpa.hibernate.ddl-auto=create
