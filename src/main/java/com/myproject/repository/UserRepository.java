@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> findAll();
 
@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUsernameContainingIgnoreCase(String username);
     User findByEmail(String email);
 
-    void deleteUserByUserid(Long userid);
+    void deleteUserByUserid(String userid);
 
     @Modifying
     @Transactional

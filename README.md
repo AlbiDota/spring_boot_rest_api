@@ -18,6 +18,25 @@ Before you begin, ensure you have:
 - Maven
 - PostgreSQL
 - IntelliJ IDEA
+- [Google Cloud Console](https://console.cloud.google.com/)
+
+
+1. Head over to [Google Cloud Console](https://console.cloud.google.com/), and create a project. (Name is not relevant)
+2. Locate the 'Credentials' tab on the left side, 
+3. Click 'Create Credentials' then 'OAuth Client ID'
+4. Under 'Application Type' you should select 'Web app'
+5. Make sure 'Authorized JS origins' has the following URI
+```Authorized JavaScript Origins
+http://localhost:8080
+```
+6. And 'Authorized redirect URI' has
+```Authorized JavaScript Origins
+http://localhost:8080/login/oauth2/code/google
+```
+
+7. Click 'Create' and get your Client ID and Client Secret. These can be downloaded in a JSON file for later.
+8. The rest of this setup continues from 'step 4' in 'Getting Started'
+
 
 ## Getting Started
 
@@ -33,22 +52,33 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/app2000oblig2
 spring.datasource.username=your_username (most likely 'postgres')
 spring.datasource.password=your_password
 ```
-4. Make sure the last line looks like this:
+
+4. Make sure to swap out the placeholder ID and SECRET with the ones you got earlier
+```properties
+spring.security.oauth2.client.registration.google.client-id=YOUR_GOOGLE_CLIENT_ID
+spring.security.oauth2.client.registration.google.client-secret=YOUR_GOOGLE_CLIENT_SECRET
+```
+AND MAKE SURE TO CHANGE THESE BACK IF YOU ARE EVER TO SHARE THIS CODE!! 
+
+This would more optimally be done with secrets in a `.env` file along with the database password, but not needed right now
+
+THE ID AND SECRET SHOULD NEVER BE SHARED ONLINE!! THIS IS ONLY FOR RUNNING IT LOCALLY!!!
+5. Make sure the last line looks like this:
 ```properties
 spring.jpa.hibernate.ddl-auto=create
 ```
 
-5. Build the project:
+6. Build the project:
 ```bash
 mvn clean install
 ```
 
-6. Run the application:
+7. Run the application:
 ```bash
 mvn spring-boot:run
 ```
 
-7. Afterwards you should change this line from:
+8. Afterwards you should change this line from:
 ```properties
 spring.jpa.hibernate.ddl-auto=create
 ```
@@ -69,7 +99,7 @@ Access the Swagger UI to explore and test the API:
 
 1. Start your Spring Boot application
 2. Go to `http://localhost:8080/swagger-ui.html` in your browser
-3. **SCRAPPED Sign in with 'user' and 'password' (these can be changed in your SecurityConfig however you like)
+3. Sign in with your google account
 4. Explore and test the available endpoints:
     - Expand the "Exercise Controller" section to see all endpoints related to it
     - Click on an endpoint (e.g., GET `/api/exercise/get/{name}`)
@@ -80,19 +110,37 @@ Access the Swagger UI to explore and test the API:
 
 1. Download and install [Postman](https://www.postman.com/downloads/)
 2. Create requests for the following endpoints:
-   - GET `/api/mail/{userid}` - Get mail by ID
-   - GET `/api/mail` - Get all mail
-   - POST `/api/mail` - Create new mail
-   - PUT `/api/mail/{id}` - Update mail
-   - DELETE `/api/mail/{id}` - Delete mail by ID
 
-   - PUT `/api/user/{id}` - Update user by ID
-   - POST `/api/user` - Create new user
-   - GET `/api/user/get/` - Get all users
-   - GET `/api/user/get-id/{id}` - Get user by ID
-   - GET `/api/user/get-email/{email}` - Get user by email
-   - DELETE `/api/user/delete-id/{id}` - Delete mail by ID
-   - DELETE `/api/user/delete-email/{email}` - Delete mail by email
+
+   #### Workouts
+- DELETE `/api/workout/delete-id/{workoutid}` - Delete workout by ID
+- GET `/api/workout/get-user/{userfk}` - Get workout by user ID
+- GET `/api/workout/get-id/{workoutid}` - Get workout by workout ID
+- GET `/api/workout/get-exercise/` - Get workouts with specific exercise
+- GET `/api/workout/get-all/` - Get all workouts
+- POST `/api/workout` - Create workout
+- PUT `/api/workout/{workoutid}` - Update workout
+
+
+
+   #### Exercises
+- DELETE `/api/exercise/delete-id/{exerciseid}` - Delete exercise by ID
+- GET `/api/exercise/get/{name}` - Get exercise by name
+- GET `/api/exercise/get-all/` - Get all exercises
+- POST `/api/exercise` - Create exercise
+- PUT `/api/exercise/{exerciseid}` - Update exercise
+
+
+   #### Users
+- DELETE `/api/user/delete-id/{id}` - Delete user by ID
+- DELETE `/api/user/delete-email/{email}` - Delete user by email
+- GET `/api/user/get-name/{username}` - Get all users with matching name
+- GET `/api/user/get-id/{id}` - Get user by ID
+- GET `/api/user/get-email/{email}` - Get user by email
+- GET `/api/user/current-user` - Get info about yourself
+- POST `/api/user` - Create user
+- PUT `/api/user/{userid}` - Update user
+
 
 
 Example POST request body (exercise):
@@ -110,43 +158,58 @@ Example POST request body (exercise):
 src/main/java/com/myproject/
 ├── config/          # Configuration classes
 ├── controller/      # REST controllers
+├── dto/             # Data Transfer Objects
+├── exception/       # Exception handling
+├── mapper/          # Object mappers 
 ├── model/           # Entity classes
 ├── repository/      # Data access layer
-├── service/         # Business logic
-├── dto/             # Data Transfer Objects
-├── mapper/          # Object mappers
-└── exception/       # Exception handling
+└── service/         # Business logic 
 ```
 
 ## Key Components
 
 ### Entity
-The `Mail` entity represents a mail in the database with fields:
-- id (primary key)
-- subject
-- fromEmail
-- toEmail
+The `Workout` entity represents a workout in the database with fields:
+- workoutid (primary key)
+- title
 - content
-- timestamp
+- workoutdate
+- userfk
+- exercisefk
 
-The `User` entity represents a mail in the database with fields:
-- id (primary key)
+The `User` entity represents a user in the database with fields:
+- userid (primary key)
 - username
 - email
-- password
+- birthday
+
+The `Exercise` entity represents an exercise in the database with fields:
+- exerciseid (primary key)
+- name
+- desc
 
 ### Repository
-The `MailRepository` and `UserRepository` provides data access methods:
+The `exerciseRepository`, `UserRepository` and `WorkoutRepository` provides data access methods:
 - Basic CRUD operations (from JpaRepository)
 - Custom finder methods
 
 ### Service
-The `MailService` implements business logic:
-- Get mail by ID
-- Get all mail 
-- Create new mail
-- Update existing mail
-- Delete mail
+The `WorkoutService` implements business logic:
+- Get all workouts
+- Get workout by ID
+- Workouts by userid
+- Workouts with exerciseid
+- Create workout
+- Delete workout
+
+
+The `ExerciseService` implements business logic:
+- Get all exercises
+- Get exercises by name
+- Update exercise
+- Create exercise
+- Delete exercise
+
 
 The `UserService` implements business logic:
 - Get all users
@@ -157,19 +220,34 @@ The `UserService` implements business logic:
 - Delete user by ID
 - Delete user by email
 
+
 ### Controller
-The `MailController` defines REST endpoints:
-- GET `/api/mail/{id}` - Get mail by ID
-- GET `/api/mail` - Get all mail
-- POST `/api/mail` - Create new mail
-- PUT `/api/mail/{id}` - Update mail
-- DELETE `/api/mail/{id}` - Delete mail by ID
+
+The `WorkoutController` defines REST endpoints:
+- DELETE `/api/workout/delete-id/{workoutid}` - Delete workout by ID
+- GET `/api/workout/get-user/{userfk}` - Get workout by user ID
+- GET `/api/workout/get-id/{workoutid}` - Get workout by workout ID
+- GET `/api/workout/get-exercise/` - Get workouts with specific exercise
+- GET `/api/workout/get-all/` - Get all workouts
+- POST `/api/workout` - Create workout
+- PUT `/api/workout/{workoutid}` - Update workout
+
+
+
+The `ExerciseController` defines REST endpoints:
+- DELETE `/api/exercise/delete-id/{exerciseid}` - Delete exercise by ID
+- GET `/api/exercise/get/{name}` - Get exercise by name
+- GET `/api/exercise/get-all/` - Get all exercises
+- POST `/api/exercise` - Create exercise
+- PUT `/api/exercise/{exerciseid}` - Update exercise
+
 
 The `UserController` defines REST endpoints:
-- PUT `/api/user/{id}` - Update user by ID
-- POST `/api/user` - Create new user
-- GET `/api/user/get/` - Get all users
+- DELETE `/api/user/delete-id/{id}` - Delete user by ID
+- DELETE `/api/user/delete-email/{email}` - Delete user by email
+- GET `/api/user/get-name/{username}` - Get all users with matching name
 - GET `/api/user/get-id/{id}` - Get user by ID
 - GET `/api/user/get-email/{email}` - Get user by email
-- DELETE `/api/user/delete-id/{id}` - Delete mail by ID
-- DELETE `/api/user/delete-email/{email}` - Delete mail by email
+- GET `/api/user/current-user` - Get info about yourself
+- POST `/api/user` - Create user
+- PUT `/api/user/{userid}` - Update user

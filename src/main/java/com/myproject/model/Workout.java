@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,16 +28,16 @@ public class Workout {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "workout date")
-    private LocalDateTime workoutDate;
+    @Column(name = "workoutdate")
+    private LocalDate workoutdate;
 
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
-    private User user;
+    @JoinColumn(name = "userfk")
+    private User userfk;
 
     @ManyToOne
-    @JoinColumn(name = "exercises_id")
-    private Exercise exercise;
+    @JoinColumn(name = "exercisefk")
+    private Exercise exercisefk;
 
 }

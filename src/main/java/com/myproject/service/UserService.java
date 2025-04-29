@@ -9,7 +9,7 @@ public interface UserService {
     List<User> getAllUsers();
 
     // fetch a user by id
-    User getUserById(Long userid);
+    User getUserById(String userid);
 
     // fetch a user by name
     List<User> getUsersByNameLike(String username);
@@ -18,7 +18,7 @@ public interface UserService {
     User getUserByEmail(String email);
 
     // update a user
-    User updateUser(Long userid, User updatedUser);
+    User updateUser(String userid, User updatedUser);
 
     // create a user
     //void createUser(User user);
@@ -29,7 +29,7 @@ public interface UserService {
 
 
     // delete a user by id
-    void deleteUserByUserId(Long userid);
+    void deleteUserByUserId(String userid);
 
     // delete a user by email
     void deleteUserByEmail(String email);

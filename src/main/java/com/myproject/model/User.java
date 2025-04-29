@@ -17,10 +17,10 @@ import java.time.LocalDate;
 public class User {
 
     @Id //Jeg ønsker å bruke google authentication for å mekke ID-en til brukern, men foreløpig er den generert her
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "User ID", accessMode = Schema.AccessMode.READ_ONLY) //så vi ikke fucker opp IDen
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "User ID"/*, accessMode = Schema.AccessMode.READ_ONLY*/) //så vi ikke fucker opp IDen
     @Column(name = "userid")                                                // i swagger eller postman
-    private Long userid;
+    private String userid;
 
     @Column(name = "username")
     private String username;

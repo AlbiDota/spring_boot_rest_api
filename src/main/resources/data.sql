@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS exercises CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users(
-    userid SERIAL PRIMARY KEY,
+    userid VARCHAR(255) PRIMARY KEY,
     username VARCHAR(255),
     email VARCHAR(255),
     birthday DATE
@@ -17,14 +17,14 @@ CREATE TABLE exercises (
 );
 
 CREATE TABLE workouts (
-    workout_id SERIAL PRIMARY KEY,
+    workoutid SERIAL PRIMARY KEY,
     title VARCHAR(255),
     content TEXT,
-    workout_date TIMESTAMP,
-    users_id BIGINT,
-    exercises_id BIGINT, -- foreign key IDer navngir vi med (tablenavn + understrek + id) for ordens skyld ye
-    CONSTRAINT fk_user FOREIGN KEY (users_id) REFERENCES users(userid) ON DELETE CASCADE,
-    CONSTRAINT fk_exercise FOREIGN KEY (exercises_id) REFERENCES exercises(exerciseid) ON DELETE CASCADE
+    workoutdate DATE, -- YYYY-MM-DD
+    userfk VARCHAR(255),
+    exercisefk BIGINT, -- foreign key IDer navngir vi med (tablenavn + understrek + id) for ordens skyld ye
+    CONSTRAINT fk_user FOREIGN KEY (userfk) REFERENCES users(userid) ON DELETE CASCADE,
+CONSTRAINT fk_exercise FOREIGN KEY (exercisefk) REFERENCES exercises(exerciseid) ON DELETE CASCADE
 );
 
 --TRUNCATE TABLE workouts;
@@ -32,12 +32,12 @@ CREATE TABLE workouts (
 --TRUNCATE TABLE users;
 
 -- users
-INSERT INTO users ( username, email, birthday) VALUES
-    ('testing', 'testing@test.com', '1990-01-01'),
-    ('malinator', 'malin@mail.com', '1985-02-12'),
-    ('oscarinho', 'oscar@mail.com', '1992-03-23'),
-    ('sarasaurus', 'sara@mail.com', '1995-04-15'),
-    ('bertimusprime', 'albert@mail.com', '1988-07-20');
+INSERT INTO users ( userid, username, email, birthday) VALUES
+    ('abc123','testing', 'testing@test.com', '1990-01-01'),
+    ('1234a', 'malinator', 'malin@mail.com', '1985-02-12'),
+    ('bbbb', 'oscarinho', 'oscar@mail.com', '1992-03-23'),
+    ('ccccc', 'sarasaurus', 'sara@mail.com', '1995-04-15'),
+    ('dddd', 'bertimusprime', 'albert@mail.com', '1988-07-20');
 
 -- exercises
 INSERT INTO exercises (name, description) VALUES
@@ -48,14 +48,14 @@ INSERT INTO exercises (name, description) VALUES
     ('Benchpress', 'Dumbbell bench');
 
 -- workouts
-INSERT INTO workouts (title, content, workout_date, users_id, exercises_id) VALUES
-    ('CHEST DAY', 'YEAAH BUDDEYYEA', now(), 5, 4),
-    ('Løper litt da hehe', 'rolig tur på bana', now(), 3, 1),
-    ('Løper mye!!', 'Marathon før frokost', now(), 3, 2);
+INSERT INTO workouts (title, content, workoutdate, userfk, exercisefk) VALUES
+    ('CHEST DAY', 'YEAAH BUDDEYYEA', now(), 'dddd', 4),
+    ('Løper litt da hehe', 'rolig tur på bana', now(), 'bbbb', 1),
+    ('Løper mye!!', 'Marathon før frokost', now(), 'bbbb', 2);
 
 
 
 
 SELECT * FROM exercises ORDER BY exerciseid;
-SELECT * FROM workouts ORDER BY users_id, workout_date;
+SELECT * FROM workouts ORDER BY workoutdate, userfk, workoutid;
 SELECT * FROM users ORDER BY userid;

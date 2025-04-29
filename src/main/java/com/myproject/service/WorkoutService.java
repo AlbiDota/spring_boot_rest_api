@@ -1,29 +1,30 @@
 package com.myproject.service;
 
-import com.myproject.model.Workout;
+import com.myproject.dto.WorkoutCreateDTO;
+import com.myproject.dto.WorkoutDTO;
 
 import java.util.List;
 
 public interface WorkoutService {
 
     // fetch all workouts
-    List<Workout> getAllWorkouts();
+    List<WorkoutDTO> getAllWorkouts();
 
     // fetch workout by workoutid
-    Workout getWorkoutByWorkoutid(Long workoutid);
+    WorkoutDTO getWorkoutByWorkoutid(Long workoutid);
 
     // fetch workout(s) by userid
-    List<Workout> getWorkoutsByUsers_id(Long users_id);
+    List<WorkoutDTO> getWorkoutsByUserfk(String userfk);
 
     // fetch workout(s) by exerciseid
-    List<Workout> getWorkoutsByExercises_id(Long exercises_id);
+    List<WorkoutDTO> getWorkoutsByExercisefk(Long exercisefk);
 
     // update a workout
-    Workout updateWorkout(Long workoutid, Workout workout);
+    WorkoutDTO updateWorkout(Long workoutid, WorkoutDTO workoutDTO);
 
     // create workout
-    Workout createWorkout(Workout workout);
+    WorkoutDTO createWorkout(WorkoutCreateDTO workoutCreateDTO);
 
     // delete workout
-    void deleteWorkoutById(Long workout_id);
+    void deleteWorkoutById(Long workoutid);
 }

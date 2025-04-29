@@ -1,5 +1,6 @@
 package com.myproject.repository;
 
+import com.myproject.dto.WorkoutDTO;
 import com.myproject.model.Workout;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,9 +12,10 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
 
     // ------ GET -------
     List<Workout> findAll();
-    Workout findByWorkout_id(Long workout_id);
-    List<Workout> findAllByUsers_id(Long users_id); //workouts av en spesifikk bruker
-    List<Workout> findAllByExercises_id(Long exercises_id); //alle workouts av spesifikk øvelse
+    Workout findByWorkoutid(Long workoutid);
+
+    List<Workout> findAllByUserfk_Userid(String userfk);
+    List<Workout> findAllByExercisefk_Exerciseid(Long exerciseid); //alle workouts av spesifikk øvelse
 
     // ------ PUT -------
     // ------ POST -------
@@ -21,5 +23,5 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     // ------ DELETE -------
     @Modifying
     @Transactional
-    void deleteById(Long workout_id);
+    void deleteById(Long workoutid);
 }

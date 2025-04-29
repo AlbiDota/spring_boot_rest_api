@@ -7,10 +7,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Tag(name = "User Controller")
@@ -30,7 +33,7 @@ public class UserController {
     // ------ GET -------
     @GetMapping("/get-id/{userid}")
     @Operation(summary="Get user by ID", description = "Get user by ID")
-    public User getUserById(@PathVariable Long userid) {
+    public User getUserById(@PathVariable String userid) {
         return userService.getUserById(userid);
     }
 
@@ -52,6 +55,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/current-user")
+    @Operation(summary = "Get info about yourself", description = "get currently signed in google acc info")
+    public Map<String, Object> getCurrentUser(@AuthenticationPrincipal OAuth2User principal) {
+        return principal.getAttributes();
+    }
+
     //----- PUT ----
     // @PutMapping("/{id}")
     // @Operation(summary="Update user", description = "Update user details")
@@ -59,7 +68,7 @@ public class UserController {
 
     @PutMapping("/{userid}")
     @Operation(summary="Update user", description = "Update user details")
-    public ResponseEntity<User> updateUser(@PathVariable Long userid, @RequestBody User updatedUser) {
+    public ResponseEntity<User> updateUser(@PathVariable String userid, @RequestBody User updatedUser) {
         try {
             User user = userService.updateUser(userid, updatedUser);
             return new ResponseEntity<>(user, HttpStatus.OK); //return update and code 200 - OK
@@ -78,7 +87,7 @@ public class UserController {
     @PostMapping
     @Operation(summary="Create user", description = "Create a new user")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        user.setUserid(null); //for å ikke måtte skrive inn ID i swagger!!
+        //user.setUserid(null); //for å ikke måtte skrive inn ID i swagger!! //nvm vi generer den ikke lenger
         User savedUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
@@ -86,7 +95,7 @@ public class UserController {
     //----- DELETE ----
     @DeleteMapping("/delete-id/{userid}")
     @Operation(summary="Delete user by ID", description = "Delete a user using ID")
-    public void deleteUserByUserId(@PathVariable Long userid) { userService.deleteUserByUserId(userid);}
+    public void deleteUserByUserId(@PathVariable String userid) { userService.deleteUserByUserId(userid);}
 
     @DeleteMapping("/delete-email/{email:.+}") //for spesialtegn
     @Operation(summary="Delete user by email", description = "Delete a user using email")
