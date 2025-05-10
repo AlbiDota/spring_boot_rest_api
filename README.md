@@ -1,7 +1,7 @@
 # APP2000 - spring_boot_rest_api
 Using an older assignment as a placeholder and template to start with.
 
-[github.com/AlbiDota/react-bert](https://github.com/AlbiDota/react-bert)
+[https://github.com/AlbiDota/spring_boot_rest_api](https://github.com/AlbiDota/spring_boot_rest_api)
 
 ## Tech Stack
 
